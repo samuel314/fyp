@@ -8,6 +8,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { BookDetailComponent } from './book-detail/book-detail.component';
 import { BookCreateComponent } from './book-create/book-create.component';
 import { BookEditComponent } from './book-edit/book-edit.component';
+import { CreditTransferComponent } from './credit-transfer/credit-transfer.component';
+import { SignupComponent } from './signup/signup.component';
+import { AccountVerificationComponent } from './account-verification/account-verification.component';
+import { GpaCalcComponent } from './gpa-calc/gpa-calc.component';
+import { GradCheckComponent } from './grad-check/grad-check.component';
 
 const appRoutes: Routes = [
   {
@@ -30,10 +35,38 @@ const appRoutes: Routes = [
     component: BookEditComponent,
     data: { title: 'Edit Book' }
   },
-  { path: '',
-    redirectTo: '/books',
-    pathMatch: 'full'
+  {
+    path: 'credit-transfers',
+    component: CreditTransferComponent,
+    data: { title: 'Credit Transfer List' },
+    children: [
+      { path: ';id=:id;keyword=:keyword', component: CreditTransferComponent },
+    ]
+  },
+  {
+    path: 'signup',
+    component: SignupComponent,
+    data: { title: 'Sign Up Page' }
+  },
+  {
+    path: 'account-verification/:id',
+    component: AccountVerificationComponent,
+    data: { title: 'Account Verification' }
+  },
+  {
+    path: 'gpa-calc',
+    component: GpaCalcComponent,
+    data: { title: 'GPA Calculator' }
+  },
+  {
+    path: 'grad-check',
+    component: GradCheckComponent,
+    data: { title: 'Graduation Checklist' }
   }
+  // { path: '',
+  //   redirectTo: '/credit-transfers',
+  //   pathMatch: 'full'
+  // }
 ];
 
 @NgModule({
@@ -42,7 +75,12 @@ const appRoutes: Routes = [
     BookComponent,
     BookDetailComponent,
     BookCreateComponent,
-    BookEditComponent
+    BookEditComponent,
+    CreditTransferComponent,
+    SignupComponent,
+    AccountVerificationComponent,
+    GpaCalcComponent,
+    GradCheckComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +89,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
-    )
+    ),
   ],
   providers: [],
   bootstrap: [AppComponent]

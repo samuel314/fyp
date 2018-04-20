@@ -1,0 +1,28 @@
+<div class="container">
+  <div>
+    <h2>Engineering Fundamental Course(s)</h2>
+  </div>
+  
+  <table class="table">
+    <thead>
+      
+      <tr>
+        <th>Id</th>
+        <th>Course</th>
+        <th>Condition</th>
+        <th>Credits</th>
+        <th>Fulfilled</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let result of results">
+        <td>{{result.id}}</td>
+        <td>{{result.course}}</td>
+        <td>{{result.condition}}</td>
+        <td>{{result.credits}}</td>
+        <td *ngIf="result.fulfilled==true"><i class="fa fa-check-circle fa-2x" style="color:green"></i></td>
+        <td *ngIf="result.fulfilled==false"><i class="fa fa-times-circle fa-2x" style="color:red"></i></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

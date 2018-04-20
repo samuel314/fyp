@@ -14,11 +14,22 @@ var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://database/mean-angular5', { useMongoClient: true, promiseLibrary: require('bluebird') })
-  .then(() =>  console.log('connection succesful'))
+mongoose.connect('mongodb://database/fyp', { useMongoClient: true, promiseLibrary: require('bluebird') })
+  .then(() =>  console.log('connection successful'))
   .catch((err) => console.error(err));
 
 var book = require('./routes/book');
+var creditTransfer = require('./routes/creditTransfer');
+var webScrape = require('./routes/webScrape');
+var institution = require('./routes/institution');
+var exam = require('./routes/exam');
+var examTransfer = require('./routes/examTransfer');
+var signup = require('./routes/signup');
+var user = require('./routes/user');
+var resendToken = require('./routes/resendToken');
+var confirmation = require('./routes/confirmation');
+var courseHistory = require('./routes/courseHistory');
+var majorRequirement = require('./routes/majorRequirement');
 var app = express();
 var cors = require('cors');
 
@@ -46,10 +57,22 @@ app.use(function(req, res, next) {
   // Pass to next layer of middleware
   next();
 })
-
+app.disable('etag');
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/books', express.static(path.join(__dirname, 'dist')));
 app.use('/book', book);
+app.use('/credit-transfers', express.static(path.join(__dirname, 'dist')));
+app.use('/credit-transfer', creditTransfer);
+app.use('/scrape', webScrape);
+app.use('/institution', institution);
+app.use('/exam', exam);
+app.use('/exam-transfer', examTransfer);
+app.use('/signup', signup);
+app.use('/user', user);
+app.use('/resend', resendToken);
+app.use('/confirmation', confirmation);
+app.use('/courseHistory', courseHistory);
+app.use('/majorRequirement', majorRequirement);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -66,7 +89,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.send(err.message);
 });
 
 /**

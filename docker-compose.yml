@@ -3,6 +3,7 @@ version: '2' # specify docker-compose version
 # Define the services/containers to be run
 services:
   angular: # name of the first service
+    image: meanangular5_angular
     build: angular-client # specify the directory of the Dockerfile
     ports:
       - "4200:4200" # specify port forewarding
@@ -10,9 +11,12 @@ services:
       - ./angular-client:/usr/src/app
 
   express: #name of the second service
+    image: meanangular5_express
     build: express-server # specify the directory of the Dockerfile
     ports:
       - "3000:3000" #specify ports forewarding
+    environment:
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
     links:
       - database # link this service to the database service
 
