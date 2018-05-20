@@ -38,28 +38,6 @@ router.get('/', function(req, res, next) {
     }
   });
   
-  /* SAVE BOOK */
-  router.post('/', function(req, res, next) {
-    CreditTransfer.create(req.body, function (err, post) {
-      if (err) return next(err);
-      res.json(post);
-    });
-  });
-  
-  /* UPDATE BOOK */
-  router.put('/:id', function(req, res, next) {
-    CreditTransfer.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
-      if (err) return next(err);
-      res.json(post);
-    });
-  });
-  
-  /* DELETE BOOK */
-  router.delete('/:id', function(req, res, next) {
-    CreditTransfer.findByIdAndRemove(req.params.id, req.body, function (err, post) {
-      if (err) return next(err);
-      res.json(post);
-    });
-  });
+
 
 module.exports = router;

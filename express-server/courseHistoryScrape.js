@@ -1,4 +1,7 @@
 var page = require('webpage').create();
+var system = require('system');
+var username = system.args[1];
+var password = system.args[2];
 var loadInProgress = false;
 var testindex = 0,
 output = { errors: [], results: [] };
@@ -27,19 +30,20 @@ var steps = [
         page.open('https://login.psft.ust.hk/cas/login?method=POST&service=https%3A%2F%2Fsisprod.psft.ust.hk%2Fpsp%2FSISPROD%2FEMPLOYEE%2FHRMS%2Fc%2FSA_LEARNER_SERVICES.SSS_STUDENT_CENTER.GBL%3Fpslnkid%3DZ_HC_SSS_STUDENT_CENTER_LNK%26FolderPath%3DPORTAL_ROOT_OBJECT.Z_HC_SSS_STUDENT_CENTER_LNK%26IsFolder%3Dfalse%26IgnoreParamTempl%3DFolderPath%252cIsFolder%26cmd%3Dlogin%26languageCd%3DENG%26userid%3Dcasproxy%26pwd%3Dna', 'GET', function(status) {
         page.includeJs('https://cdnjs.cloudflare.com/ajax/libs/headjs/1.0.3/head.min.js', function() {
  
-            page.evaluate(function() {
-            document.getElementById('username').value = 'ysschanaa'; 
-            document.getElementById('password').value = 'kelefe314';
+            page.evaluate(function(username, password) {
+            document.getElementById('username').value = username; 
+            document.getElementById('password').value = password;
 document.getElementsByName("submit")[0].disabled = false;
 	document.getElementsByName("submit")[0].click();
             
-        });
+        }, username, password);
 	});
 	});
     },
     function() {
         
    	page.injectJs('jquery-1.11.1.min.js');
+
 	page.render('output1.png');
 	
         page.evaluate(function() {
@@ -48,6 +52,7 @@ document.getElementsByName("submit")[0].disabled = false;
 function() {
          
    	page.injectJs('jquery-1.11.1.min.js');
+
 	page.open('https://sisprod.psft.ust.hk/psc/SISPROD/EMPLOYEE/HRMS/c/SA_LEARNER_SERVICES.SSS_MY_CRSEHIST.GBL?Page=SSS_MY_CRSEHIST&Action=U&ForceSearch=Y');
         page.evaluate(function() {
         });

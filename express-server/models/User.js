@@ -10,18 +10,6 @@ var Schema = mongoose.Schema;
 // Create User Schema
 var UserSchema = new Schema({
 
-  // First Name of User
-  firstName: {
-    type: String,
-    required: true
-  },
-
-  // Last Name of User
-  lastName: {
-    type: String,
-    required: true
-  },
-  
   // Username of User
   username: {
     type: String,
@@ -35,6 +23,24 @@ var UserSchema = new Schema({
     unique: true
   },
 
+  // Gender of User
+  gender: {
+    type: String,
+    required: true
+  },
+
+  // Admission Type of User
+  admitType: {
+    type: String,
+    required: true
+  },
+
+  // User is local or not
+  local: {
+    type: String,
+    required: true
+  },
+
 // Roles of User
   roles: [{ 
     type: 'String' 
@@ -42,6 +48,12 @@ var UserSchema = new Schema({
 
   // Verification of User
   isVerified: {
+    type: Boolean,
+    default: false
+  },
+
+  // Login status of User
+  isLogin: {
     type: Boolean,
     default: false
   },

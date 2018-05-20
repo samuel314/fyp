@@ -1,0 +1,23 @@
+<div class="container">
+    <h3 class="col-md-12 text-center">HKUST STUDENT CENTER SIGN IN</h3>
+    <h5>We will only save your course history for our main features to work. We will never save your ITSC username and password.</h5>
+    <div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
+      <form name="userForm" (ngSubmit)="signin()" class="signin form-horizontal" novalidate autocomplete="off" #signinForm="ngForm">
+        <fieldset>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" class="form-control"
+                 [(ngModel)]="credentials.username" placeholder="Username">
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control"
+                 [(ngModel)]="credentials.password" placeholder="Password">
+          </div>
+          <div class="text-center form-group">
+            <button type="submit" class="btn btn-primary">Sign in</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>

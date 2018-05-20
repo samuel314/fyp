@@ -18,7 +18,6 @@ mongoose.connect('mongodb://database/fyp', { useMongoClient: true, promiseLibrar
   .then(() =>  console.log('connection successful'))
   .catch((err) => console.error(err));
 
-var book = require('./routes/book');
 var creditTransfer = require('./routes/creditTransfer');
 var webScrape = require('./routes/webScrape');
 var institution = require('./routes/institution');
@@ -30,6 +29,9 @@ var resendToken = require('./routes/resendToken');
 var confirmation = require('./routes/confirmation');
 var courseHistory = require('./routes/courseHistory');
 var majorRequirement = require('./routes/majorRequirement');
+var course =  require('./routes/course');
+var dataMine1 = require('./routes/firstResult');
+var login = require('./routes/login');
 var app = express();
 var cors = require('cors');
 
@@ -59,8 +61,6 @@ app.use(function(req, res, next) {
 })
 app.disable('etag');
 app.use(express.static(path.join(__dirname, 'dist')));
-app.use('/books', express.static(path.join(__dirname, 'dist')));
-app.use('/book', book);
 app.use('/credit-transfers', express.static(path.join(__dirname, 'dist')));
 app.use('/credit-transfer', creditTransfer);
 app.use('/scrape', webScrape);
@@ -73,6 +73,9 @@ app.use('/resend', resendToken);
 app.use('/confirmation', confirmation);
 app.use('/courseHistory', courseHistory);
 app.use('/majorRequirement', majorRequirement);
+app.use('/course', course);
+app.use('/dataMine1', dataMine1);
+app.use('/login', login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,0 +1,85 @@
+<div id="bg">			
+  <div id="header">
+    <div id="boss" >
+      <h1>
+        <a [routerLink]="['/']">HKUST COURSE SELECTION ADVISOR</a>
+      </h1>						
+    </div>
+    <div id="nav">
+      <ul class="account">
+        <li>
+          <a [routerLink]="['/user-profile']">Profile</a>
+        </li>
+        <li>
+          <a href="" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+      <br class="clear" />
+    </div>
+    
+  </div>
+  
+  <hr />				
+  <p>
+  
+          
+  <div id="main">
+    <div id="sidebar">
+
+      <h3>
+        Functions
+      </h3>
+      <ul class="linkedList">
+        <li class="first">
+          <a [routerLink]="['/credit-transfers']">Credit Transfer</a>
+        </li>
+        <li>
+          <a [routerLink]="['/gpa-calc']">GPA Calculator</a>
+        </li>
+        <li>
+          <u>Course Recommendations</u>
+        </li>
+        <li class="last">
+          <a [routerLink]="['/grad-check']">Graduation Checklist</a>
+        </li>
+      </ul>
+    </div>
+    <div id="content">
+      <div id="box1">
+        <div class="content" style="overflow-x: hidden; overflow-y: scroll; height:610px; width:1300px; color:black">
+          <div>
+            <h2 style="color:black;">Course Recommendations</h2>
+          </div>
+          
+          <table class="table">
+            <thead>
+              
+              <tr>
+                <th>Rank</th>
+                <th>Course ID</th>
+                <th>Course Code</th>
+                <th>Course Title</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let result of results; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{result.courseId}}</td>
+                <td>{{result.courseCode}}</td>
+                <td>{{result.courseTitle}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <br class="clear" />
+    </div>
+    <br class="clear" />
+  </div>
+
+<hr />				
+<p>
+<div id="copyright">
+   <a href="#">About</a> | <a href="#">Contact</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Services</a>
+</div>
+</div>

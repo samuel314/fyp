@@ -11,7 +11,9 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 /* POST /signup */
 router.post('/', [
     check('username', 'Username cannot be blank').exists(),
-
+    check('gender', 'Gender must be selected').exists(),
+    check('admitType', 'Admission Type must be selected').exists(),
+    check('local', 'Location must be selected').exists(),
     check('email')
       // Every validator method in the validator lib is available as a
       // method in the check() APIs.
@@ -30,7 +32,7 @@ router.post('/', [
     //   }),
    
     // General error messages can be given as a 2nd argument in the check APIs
-    check('password', 'passwords must be at least 5 chars long and contain one number')
+    check('password', 'Passwords must be at least 5 chars long and contain one number')
       .isLength({ min: 5 })
       .matches(/\d/)
 
@@ -45,10 +47,10 @@ router.post('/', [
     User.findOne({ email: req.body.email }, function (err, user) {
   
       // Make sure user doesn't already exist
-      if (user) return res.status(400).send({ msg: 'The email address you have entered is already associated with another account.' });
+      if (user) return res.status(400).send({email:{ msg: 'The email address you have entered is already associated with another account.' }});
 
     // Create and save the user
-      user = new User({ firstName: req.body.firstName, lastName: req.body.lastName, username: req.body.username, email: req.body.email, password: req.body.password });
+      user = new User({ username: req.body.username, email: req.body.email, gender: req.body.gender, admitType: req.body.admitType, local: req.body.local, password: req.body.password });
       user.save(function (err) {
           if (err) { return res.status(500).send({ msg: err.message }); }
   

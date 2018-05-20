@@ -1,188 +1,259 @@
-<div class="container">
-  <h1>Course Equivalence Database</h1>
-  <div class="row">
-    <div class="col-md-6">
-      <form (ngSubmit)="search(type, id, keyword, category)" #creditTransferForm="ngForm">
-        <table border="0" cellpadding="0" cellspacing="0" class="contentb">
-          <tbody>
-            <tr>
-              <td valign="middle" align="left">Type</td>
-              <td width="10"></td>
-              <td valign="top" align="left" style="padding-bottom:5px;">
-                <select class="form-control" name="type" style="margin-left:0px;background: #ffffff;color: #333333;" [(ngModel)]="type" (ngModelChange)="changeType()">
-                  <option selected [ngValue]="undefined">-- Please select --</option>
-                  <option *ngFor="let type of types" [ngValue]="type.name">{{ type.name }}</option>
-                </select>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div *ngIf="type==='Exam'">
-            <table>
-              <tbody>
-                <tr>
-                  <td valign="middle" align="left">Examination</td>
-                  <td width="10"></td>
-                  <td valign="top" align="left" style="padding-bottom:5px;">
-                    <select class="form-control" name="id" style="margin-left:0px;background: #ffffff;color: #333333;" [(ngModel)]="id" (ngModelChange)="update(type, id)">
-                      <option selected [ngValue]="undefined">-- Please select --</option>
-                      <option *ngFor="let exam of exams" [ngValue]="exam.id">{{ exam.name }}</option>
-                    </select>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        <div *ngIf="type==='Local'">
-          <table>
-            <tbody>
-              <tr>
-                <td valign="middle" align="left">Institution</td>
-                <td width="10"></td>
-                <td valign="top" align="left" style="padding-bottom:5px;">
-                  <select class="form-control" name="id" style="margin-left:0px;background: #ffffff;color: #333333;" [(ngModel)]="id">
-                    <option selected [ngValue]="undefined">-- Please select --</option>
-                    <option *ngFor="let school of schools" [ngValue]="school.id">{{ school.name }}</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td valign="middle" align="left">Keyword</td>
-                <td width="10"></td>
-                <td valign="top" align="left" style="padding-bottom:5px;">
-                  <div class="form-group">
-                    <input id="keyword" type="text" class="form-control" [(ngModel)]="keyword" name="keyword" placeholder="Subject, Course Code, or DB Reference No." required>
-                  </div>
-                </td>
-                <td valign="top" align="left" style="padding-bottom:5px;">
-                  <select class="form-control" name="category" style="margin-left:0px;background: #ffffff;color: #333333;" [(ngModel)]="category">
-                    <option selected [ngValue]="undefined">-- Please select --</option>
-                    <option *ngFor="let column of columns" [ngValue]="column.id">{{ column.name }}</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td valign="middle" align="left"></td>
-                <td width="10"></td>
-                <td valign="top" align="left">
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-success">Search</button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div *ngIf="type==='Non-Local'">
-          <table>
-            <tbody>
-                <tr>
-                    <td valign="middle" align="left">Location</td>
-                    <td width="10"></td>
-                    <td valign="top" align="left" style="padding-bottom:5px;">
-                      <select class="form-control" name="location" style="margin-left:0px;background: #ffffff;color: #333333;" [(ngModel)]="country" (ngModelChange)= "changeLoc()">
-                        <option selected [ngValue]="undefined">-- Please select --</option>
-                        <option *ngFor="let location of locations" [ngValue]="location._id">{{ location._id }}</option>
-                      </select>
-                    </td>
-                  </tr>
-              <tr>
-                <td valign="middle" align="left">Institution</td>
-                <td width="10"></td>
-                <td valign="top" align="left" style="padding-bottom:5px;">
-                  <select class="form-control" name="id" style="margin-left:0px;background: #ffffff;color: #333333;" [(ngModel)]="id">
-                    <option selected [ngValue]="undefined">-- Please select --</option>
-                    <option *ngFor="let school of schools" [ngValue]="school.id">{{ school.name }}</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td valign="middle" align="left">Keyword</td>
-                <td width="10"></td>
-                <td valign="top" align="left" style="padding-bottom:5px;">
-                  <div class="form-group">
-                    <input id="keyword" type="text" class="form-control" [(ngModel)]="keyword" name="keyword" placeholder="Subject, Course Code, or DB Reference No." required>
-                  </div>
-                </td>
-                <td valign="top" align="left" style="padding-bottom:5px;">
-                  <select class="form-control" name="category" style="margin-left:0px;background: #ffffff;color: #333333;" [(ngModel)]="category">
-                    <option selected [ngValue]="undefined">-- Please select --</option>
-                    <option *ngFor="let column of columns" [ngValue]="column.id">{{ column.name }}</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td valign="middle" align="left"></td>
-                <td width="10"></td>
-                <td valign="top" align="left">
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-success">Search</button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </form>
+<div id="bg">			
+    <div id="header">
+      <div id="boss" >
+        <h1>
+          <a [routerLink]="['/']">HKUST COURSE SELECTION ADVISOR</a>
+        </h1>						
+      </div>
+      <div id="nav">
+        <ul class="account" *ngIf="!isLogin">
+          <li>
+            <a [routerLink]="['/signup']">Sign up</a>
+          </li>
+          <li>
+            <a [routerLink]="['/login']">Log in</a>
+          </li>
+        </ul>
+        <ul class="account" *ngIf="isLogin">
+          <li>
+            <a [routerLink]="['/user-profile']">Profile</a>
+          </li>
+          <li>
+            <a href="" (click)="logout()">Logout</a>
+          </li>
+        </ul>
+        <br class="clear" />
+      </div>
+      
     </div>
-  </div>
-  <div *ngIf="searched && type === 'Exam'">
-      <table class="table">
-          <thead>
-            <tr>
-              <td><h3>{{ exam.name }}</h3></td>
-            </tr>
-            <tr>
-              <td>{{ exam.gradeScale }}</td>
-            </tr>
-            <tr>
-              <th>Subject</th>
-              <th>Min. Grade / Scale</th>
-              <th>HKUST Equivalent Course</th>
-              <th>Credits</th>
-              <th>Valid Until</th>
-              <th>DB Ref. No.</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let examCredit of examCredits">
-              <td>{{ examCredit.subject }}</td>
-              <td>{{ examCredit.minGrade }}</td>
-              <td>{{ examCredit.transferCourseCode }}</td>
-              <td>{{ examCredit.credits }}</td>
-              <td>{{ examCredit.validUntil }}</td>
-              <td>{{ examCredit.dbReferenceNo }}</td>
-            </tr>
-          </tbody>
-        </table>
-  </div>
-  <div *ngIf="searched && (type === 'Local' || type === 'Non-Local')">
-      <table class="table">
-          <thead>
-            <tr>
-              <td><h3>{{ institution.name }}</h3></td>
-            </tr>
-            <tr>
-              <th>Subject</th>
-              <th>Course Code</th>
-              <th>HKUST Equivalent Course</th>
-              <th>Credits</th>
-              <th>Restriction</th>
-              <th>Valid Until</th>
-              <th>DB Ref. No.</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let credit of credits">
-              <td>{{ credit.subject }}</td>
-              <td>{{ credit.courseCode }}</td>
-              <td>{{ credit.transferCourseCode }}</td>
-              <td>{{ credit.credits }}</td>
-              <td>{{ credit.restriction }}</td>
-              <td>{{ credit.validUntil }}</td>
-              <td>{{ credit.dbReferenceNo }}</td>
-            </tr>
-          </tbody>
-        </table>
+    
+    <hr />				
+    <p>
+    
+            
+    <div id="main">
+      <div id="sidebar">
+
+        <h3>
+          Functions
+        </h3>
+        <ul class="linkedList">
+          <li class="first">
+            <u>Credit Transfer</u>
+          </li>
+          <li>
+            <a [routerLink]="['/gpa-calc']">GPA Calculator</a>
+          </li>
+          <li>
+            <a [routerLink]="['/course-recommend']">Course Recommendations</a>
+          </li>
+          <li class="last">
+            <a [routerLink]="['/grad-check']">Graduation Checklist</a>
+          </li>
+        </ul>
+      </div>
+      <div id="content">
+        <div id="box1">
+            <div class="content" style="overflow-x: hidden; overflow-y: scroll; height:610px; width:1300px; color:black">
+                <h1>Course Equivalence Database</h1>
+                <div class="row">
+                  <div class="col-md-6">
+                    <form (ngSubmit)="search(type, id, keyword, category)" #creditTransferForm="ngForm">
+                      <table border="0" cellpadding="0" cellspacing="0" class="contentb">
+                        <tbody>
+                          <tr>
+                            <td valign="middle" align="left">Type</td>
+                            <td width="10"></td>
+                            <td valign="top" align="left" style="padding-bottom:5px;">
+                              <select class="form-control" name="type" style="margin-left:0px;background: #ffffff;color: #333333;" [(ngModel)]="type" (ngModelChange)="changeType()">
+                                <option selected [ngValue]="undefined">-- Please select --</option>
+                                <option *ngFor="let type of types" [ngValue]="type.name">{{ type.name }}</option>
+                              </select>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div *ngIf="type==='Exam'">
+                          <table>
+                            <tbody>
+                              <tr>
+                                <td valign="middle" align="left">Examination</td>
+                                <td width="10"></td>
+                                <td valign="top" align="left" style="padding-bottom:5px;">
+                                  <select class="form-control" name="id" style="margin-left:0px;background: #ffffff;color: #333333;" [(ngModel)]="id" (ngModelChange)="update(type, id)">
+                                    <option selected [ngValue]="undefined">-- Please select --</option>
+                                    <option *ngFor="let exam of exams" [ngValue]="exam.id">{{ exam.name }}</option>
+                                  </select>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      <div *ngIf="type==='Local'">
+                        <table>
+                          <tbody>
+                            <tr>
+                              <td valign="middle" align="left">Institution</td>
+                              <td width="10"></td>
+                              <td valign="top" align="left" style="padding-bottom:5px;">
+                                <select class="form-control" name="id" style="margin-left:0px;background: #ffffff;color: #333333;" [(ngModel)]="id">
+                                  <option selected [ngValue]="undefined">-- Please select --</option>
+                                  <option *ngFor="let school of schools" [ngValue]="school.id">{{ school.name }}</option>
+                                </select>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td valign="middle" align="left">Keyword</td>
+                              <td width="10"></td>
+                              <td valign="top" align="left" style="padding-bottom:5px;">
+                                <div class="form-group">
+                                  <input id="keyword" type="text" class="form-control" [(ngModel)]="keyword" name="keyword" placeholder="Select category from the dropdown box and enter keyword here" required>
+                                </div>
+                              </td>
+                              <td valign="top" align="left" style="padding-bottom:5px;">
+                                <select class="form-control" name="category" style="margin-left:0px;background: #ffffff;color: #333333;" [(ngModel)]="category">
+                                  <option selected [ngValue]="undefined">-- Please select --</option>
+                                  <option *ngFor="let column of columns" [ngValue]="column.id">{{ column.name }}</option>
+                                </select>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td valign="middle" align="left"></td>
+                              <td width="10"></td>
+                              <td valign="top" align="left">
+                                <div class="form-group">
+                                  <button type="submit" class="btn btn-success">Search</button>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div *ngIf="type==='Non-Local'">
+                        <table>
+                          <tbody>
+                              <tr>
+                                  <td valign="middle" align="left">Location</td>
+                                  <td width="10"></td>
+                                  <td valign="top" align="left" style="padding-bottom:5px;">
+                                    <select class="form-control" name="location" style="margin-left:0px;background: #ffffff;color: #333333;" [(ngModel)]="country" (ngModelChange)= "changeLoc()">
+                                      <option selected [ngValue]="undefined">-- Please select --</option>
+                                      <option *ngFor="let location of locations" [ngValue]="location._id">{{ location._id }}</option>
+                                    </select>
+                                  </td>
+                                </tr>
+                            <tr>
+                              <td valign="middle" align="left">Institution</td>
+                              <td width="10"></td>
+                              <td valign="top" align="left" style="padding-bottom:5px;">
+                                <select class="form-control" name="id" style="margin-left:0px;background: #ffffff;color: #333333;" [(ngModel)]="id">
+                                  <option selected [ngValue]="undefined">-- Please select --</option>
+                                  <option *ngFor="let school of schools" [ngValue]="school.id">{{ school.name }}</option>
+                                </select>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td valign="middle" align="left">Keyword</td>
+                              <td width="10"></td>
+                              <td valign="top" align="left" style="padding-bottom:5px;">
+                                <div class="form-group">
+                                  <input id="keyword" type="text" class="form-control" [(ngModel)]="keyword" name="keyword" placeholder="Subject, Course Code, or DB Reference No." required>
+                                </div>
+                              </td>
+                              <td valign="top" align="left" style="padding-bottom:5px;">
+                                <select class="form-control" name="category" style="margin-left:0px;background: #ffffff;color: #333333;" [(ngModel)]="category">
+                                  <option selected [ngValue]="undefined">-- Please select --</option>
+                                  <option *ngFor="let column of columns" [ngValue]="column.id">{{ column.name }}</option>
+                                </select>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td valign="middle" align="left"></td>
+                              <td width="10"></td>
+                              <td valign="top" align="left">
+                                <div class="form-group">
+                                  <button type="submit" class="btn btn-success">Search</button>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div *ngIf="searched && type === 'Exam'">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <td><h3 style="color:black">{{ exam.name }}</h3></td>
+                          </tr>
+                          <tr>
+                            <td>{{ exam.gradeScale }}</td>
+                          </tr>
+                          <tr>
+                            <th>Subject</th>
+                            <th>Min. Grade / Scale</th>
+                            <th>HKUST Equivalent Course</th>
+                            <th>Credits</th>
+                            <th>Valid Until</th>
+                            <th>DB Ref. No.</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let examCredit of examCredits">
+                            <td>{{ examCredit.subject }}</td>
+                            <td>{{ examCredit.minGrade }}</td>
+                            <td>{{ examCredit.transferCourseCode }}</td>
+                            <td>{{ examCredit.credits }}</td>
+                            <td>{{ examCredit.validUntil }}</td>
+                            <td>{{ examCredit.dbReferenceNo }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+                <div *ngIf="searched && (type === 'Local' || type === 'Non-Local')">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <td><h3 style="color:black">{{ institution.name }}</h3></td>
+                          </tr>
+                          <tr>
+                            <th>Subject</th>
+                            <th>Course Code</th>
+                            <th>HKUST Equivalent Course</th>
+                            <th>Credits</th>
+                            <th>Restriction</th>
+                            <th>Valid Until</th>
+                            <th>DB Ref. No.</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let credit of credits">
+                            <td>{{ credit.subject }}</td>
+                            <td>{{ credit.courseCode }}</td>
+                            <td>{{ credit.transferCourseCode }}</td>
+                            <td>{{ credit.credits }}</td>
+                            <td>{{ credit.restriction }}</td>
+                            <td>{{ credit.validUntil }}</td>
+                            <td>{{ credit.dbReferenceNo }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+              </div>              
+        </div>
+
+
+        <br class="clear" />
+      </div>
+      <br class="clear" />
+    </div>
+  
+  
+  <hr />				
+  <p>
+  <div id="copyright">
+     <a href="#">About</a> | <a href="#">Contact</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Services</a>
   </div>
 </div>

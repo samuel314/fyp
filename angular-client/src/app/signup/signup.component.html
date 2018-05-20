@@ -1,47 +1,114 @@
-<div class="container">
-  <h3 class="col-md-12 text-center">Sign Up</h3>
-  <div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
-    <form name="userForm" (ngSubmit)="signup()" class="signin form-horizontal" novalidate autocomplete="off">
-      <fieldset>
-        <div class="form-group">
-          <label for="firstName">First Name</label>
-          <input type="text" required id="firstName" name="firstName" class="form-control"
-               [(ngModel)]="credentials.firstName" placeholder="First Name">
-        </div>
-        <div class="form-group">
-          <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" name="lastName" class="form-control"
-               [(ngModel)]="credentials.lastName" placeholder="Last Name">
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" class="form-control" [(ngModel)]="credentials.email"
-               placeholder="Email">
-        </div>
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" class="form-control"
-               [(ngModel)]="credentials.username" placeholder="Username">
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" class="form-control"
-               [(ngModel)]="credentials.password" placeholder="Password">
-        </div>
-        <div class="form-group">
-          <label for="confirmPassword">Confirm Password</label>
-          <input type="password" id="confirmPassword" name="confirmPassword" class="form-control"
-               [(ngModel)]="credentials.confirmPassword" placeholder="Confirm Password">
-        </div>
-        <div class="text-center form-group">
-          <button type="submit" class="btn btn-large btn-primary">Sign up</button>
-          &nbsp; or&nbsp;
-          <a data-ui-sref="authentication.signin" class="show-signup">Sign in</a>
-        </div>
-        <div data *ngIf="error" class="text-center text-danger">
-          <strong>{{ errMessage }}</strong>
-        </div>
-      </fieldset>
-    </form>
+<div id="bg">			
+  <div id="header">
+    <div id="boss" >
+      <h1>
+        <a [routerLink]="['/']">HKUST COURSE SELECTION ADVISOR</a>
+      </h1>						
+    </div>
+    <div id="nav">
+      <ul class="account">
+        <li>
+          <a href="#">Log in</a>
+        </li>
+      </ul>
+      <br class="clear" />
+    </div>
   </div>
+  
+  <hr />				
+  <p>
+  
+          
+  <div id="main">
+    <div class="container">
+      <h3 class="col-md-12 text-center">Sign Up</h3>
+      <div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
+        <form name="userForm" (ngSubmit)="signup(gender,admitType,local)" class="signin form-horizontal" novalidate autocomplete="off" #signupForm="ngForm">
+          <fieldset>
+            <div class="form-group">
+              <label for="gender">Gender</label>
+              <select class="form-control" id="gender" name="gender" style="margin-left:0px;background: #ffffff;color: #333333;" [(ngModel)]="gender">
+                <option selected [ngValue]="undefined">-- Please select --</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+              <div data *ngIf = "error" class="text-center" style="color: red">
+                <strong>{{ errMessages.gender }}</strong>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="admitType">Admission Type</label>
+              <select class="form-control" id="admitType" name="admitType" style="margin-left:0px;background: #ffffff;color: #333333;" [(ngModel)]="admitType">
+                <option selected [ngValue]="undefined">-- Please select --</option>
+                <option value="UDSE">Local Sec Exam (HKDSE)</option>
+                <option value="UASY">Grad Asso Deg (SYFD)</option>
+                <option value="UN">Non-Local Sec Exam</option>
+                <option value="UB">IB Diploma</option>
+                <option value="USAT">SAT / SAT and AP / ACT</option>
+                <option value="UHSY">Grad HD (SYFD)</option>
+                <option value="UGAL">GCE A-Level / International A-Level</option>
+                <option value="UL">Local Sec Exam (HKALE)</option>
+                <option value="US">Special</option>
+                <option value="UO">Other Qualifications</option>
+                <option value="UI">Attending UG</option>
+              </select>
+              <div data *ngIf = "error" class="text-center" style="color: red">
+                <strong>{{ errMessages.admitType }}</strong>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="location">Location</label>
+              <select class="form-control" id="local" name="local" style="margin-left:0px;background: #ffffff;color: #333333;" [(ngModel)]="local">
+                <option selected [ngValue]="undefined">-- Please select --</option>
+                <option value="Yes">Local</option>
+                <option value="No">Non-Local</option>
+              </select>
+              <div data *ngIf = "error" class="text-center" style="color: red">
+                <strong>{{ errMessages.local }}</strong>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" class="form-control" [(ngModel)]="credentials.email"
+                   placeholder="Email">
+              <div data *ngIf = "error" class="text-center" style="color: red">
+                <strong>{{ errMessages.email }}</strong>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" id="username" name="username" class="form-control"
+                   [(ngModel)]="credentials.username" placeholder="Username">
+              <div data *ngIf = "error" class="text-center" style="color: red">
+                <strong>{{ errMessages.username }}</strong>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" class="form-control"
+                   [(ngModel)]="credentials.password" placeholder="Password">
+              <div data *ngIf = "error" class="text-center" style="color: red">
+                <strong>{{ errMessages.password }}</strong>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password</label>
+              <input type="password" id="confirmPassword" name="confirmPassword" class="form-control"
+                   [(ngModel)]="credentials.confirmPassword" placeholder="Confirm Password">
+            </div>
+            <div class="text-center form-group">
+              <button type="submit" class="btn btn-large btn-primary">Sign up</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <br class="clear" />
+  </div>
+
+<hr />				
+<p>
+<div id="copyright">
+   <a href="#">About</a> | <a href="#">Contact</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Services</a>
+</div>
 </div>

@@ -1,0 +1,148 @@
+
+    <div class="content">
+        <div id="bg">			
+        <div id="header">
+        <div id="boss" >
+        <h1>
+        HKUST COURSE SELECTION ADVISOR
+        </h1>						
+        </div>
+        <div id="nav">
+          <ul class="account" *ngIf="!isLogin">
+            <li>
+              <a [routerLink]="['/signup']">Sign up</a>
+            </li>
+            <li>
+              <a [routerLink]="['/login']">Log in</a>
+            </li>
+          </ul>
+          <ul class="account" *ngIf="isLogin">
+            <li>
+              <a [routerLink]="['/user-profile']">Profile</a>
+            </li>
+            <li>
+              <a href="" (click)="logout()">Logout</a>
+            </li>
+          </ul>
+        <br class="clear" />
+        </div>	
+        </div>
+        <hr />				
+        <p>
+                
+                        
+        <div id="main">
+                
+                
+        <div id="greybox">			
+        
+              
+            
+        <div class="container1" >
+          <a [routerLink]="['/credit-transfers']">	
+          <img [src]="CredTran" alt="Avatar" class="image">
+          <div class="overlay">
+          <div class="text">This function is used to look up what courses can be used to transfer credits for equivalent courses at HKUST</div>
+          </div>	
+          </a>
+        </div>
+        
+        
+        
+        <div class="container2" >
+          <a [routerLink]="['/gpa-calc']" *ngIf="isLogin">
+          <img [src]="GpaCal" alt="Avatar" class="image">
+          <div class="overlay">
+            <div class="text">This function is used to help students calculating the GPA</div>
+          </div>
+          </a>
+          <a (click)="notLogin()" *ngIf="!isLogin">
+            <img [src]="GpaCal" alt="Avatar" class="image">
+            <div class="overlay">
+              <div class="text">This function is used to help students calculating the GPA</div>
+            </div>
+          </a>
+        </div>
+        
+        
+        
+        <div class="container3" >
+          <a [routerLink]="['/course-recommend']" *ngIf="isLogin">
+          <img [src]="Cr" alt="Avatar" class="image">
+          <div class="overlay">
+            <div class="text">This function is used to recommend suitable courses to students</div>
+          </div>
+          </a>
+          <a (click)="notLogin()" *ngIf="!isLogin">
+            <img [src]="Cr" alt="Avatar" class="image">
+            <div class="overlay">
+              <div class="text">This function is used to recommend suitable courses to students</div>
+            </div>
+          </a>
+        </div>
+        
+        
+        
+        <div class="container4" >
+          <a [routerLink]="['/grad-check']" *ngIf="isLogin">
+          <img [src]="GradCheck" alt="Avatar" class="image">
+          <div class="overlay">
+            <div class="text">This function is used to provide a clear view of each student’s study progress</div>
+          </div>
+          </a>
+          <a (click)="notLogin()" *ngIf="!isLogin">
+            <img [src]="GradCheck" alt="Avatar" class="image">
+            <div class="overlay">
+              <div class="text">This function is used to provide a clear view of each student’s study progress</div>
+            </div>
+          </a>
+        </div>
+        
+        
+        
+        <div class="container5" >
+          <a href="https://access.ust.hk/cas/login">
+          <img [src]="Canvas" alt="Avatar" class="image">
+          <div class="overlay">
+            <div class="text">This function is used to ......</div>
+          </div>
+          </a>
+        </div>
+        
+        
+        
+        
+        <div class="container6" >
+          <a href="https://cas.ust.hk/cas/login">
+          <img [src]="Cas" alt="Avatar" class="image">
+          <div class="overlay">
+            <div class="text">This function is used to ......</div>
+          </div>
+          </a>
+        </div>	
+          
+        <!-- <div class="calendar">	
+        <h1>Calendar</h1>
+        <iframe src="https://calendar.google.com/calendar/b/2/embed?showTitle=0&amp;showNav=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=23fi23j55d6torefdg803479pc%40group.calendar.google.com&amp;color=%23875509&amp;ctz=Asia%2FHong_Kong" 
+        style="border-width:0" width="650" height="680" frameborder="0" scrolling="no"></iframe>
+        </div> -->
+        <div class="calendar">
+            <p>
+            <h1 style="text-align: center"><font color="rgb(47,79,78)">Calendar</font></h1>
+            <p>
+            <div id="calender"></div>
+        </div>
+                
+                
+        </div>
+        </div>
+              
+        <hr />				
+        <p>
+        <div id="copyright">
+         <a href="#">About</a> | <a href="#">Contact</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Services</a>
+        </div>
+        </div>
+            
+            </div>
+

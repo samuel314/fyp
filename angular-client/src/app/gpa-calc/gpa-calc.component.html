@@ -1,112 +1,174 @@
-<div class="container">
-  <div class="row">
-    <h3>Cumulative GPA Calculator (HKUST)</h3>
-  </div>
-  <div class="row">
-    <form name="gpaCalcForm" class="gpaCalc form-horizontal" novalidate autocomplete="off">
-      <div class="row">
-        <div class="col">
-          <b>Current Cumulative GPA</b> (at the beginning of this semester)
-        </div>
-        <div class="col-md-6" style="width:145px;">
-          <div class="form-group">
-            <label for="cGPA">Cumulative GPA:</label>
-            <input type="text" required id="cGPA" name="cGPA" class="form-control" [(ngModel)]="cGPA">
-          </div>
-        </div>
-        <div class="col-md-6" style="width:145px; margin-left:10px;">
-          <div class="form-group">
-            <label for="creditsEarned">Credits earned:</label>
-            <input type="text" required id="creditsEarned" name="creditsEarned" class="form-control" [(ngModel)]="creditsEarned">
-          </div>
-        </div>
-      </div>
-        
-      <div class="row" style="margin-top: 8px;">
-        <div class="col">
-          <b>This Semester</b> (courses that are currently in progress)
-        </div>
-        <div class="col-md-6" style="width:440px;">
-          <div class="col-md-6" style="width:145px; padding: 4px 0px;"><b>Course:</b></div>
-          <div class="col-md-6" style="width:145px; padding: 4px 0px;"><b>Credits:</b></div>
-          <div class="col-md-6" style="width:120px; padding: 4px 0px;"><b>Grade:</b></div>
-        </div>
-      </div>
-      <div class="row" *ngFor="let currentCourse of currentCourses; let i = index">
-        <div class="col-md-6" style="width:440px;">
-          <div class="col-md-6" style="width:145px; padding:4px 0px;">
-            {{currentCourse.course}}
-          </div>
-          <div class="col-md-6" style="width:145px; padding:4px 0px;" *ngIf="currentCourse.units!==''">
-            {{currentCourse.units}}
-          </div>
-          <div class="col-md-6" style="width:120px; margin-right:25px;" *ngIf="currentCourse.units===''">
-            <div class="form-group">
-              <input id="units" type="text" class="form-control" [(ngModel)]="currentCourse.newUnits" [name]="units + '_' + i" required>
-            </div>
-          </div>
-          <div class="col-md-6" style="width:120px;">
-            <div class="form-group">
-              <input id="grade" type="text" class="form-control" [(ngModel)]="currentCourse.grade" [name]="grade + '_' + i" required>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <button id="calculate" type="button" (click)="calculate()">Calculate</button>
-        <button id="reset" type="button" (click)="reset()">Reset</button>
-        <button id="addrow" type="button" (click)="addrow()">Add Row</button>
-      </div>
-    </form>
-    <div class="row" style="margin-top:16px; margin-bottom: 8px;" *ngIf="calculated">
-      <b>Results:</b>
-      <br><b>At the beginning of this semester:</b>
-      <br>Credits: <b>{{creditsEarned}}</b>
-      <br>Grade Points: <b>{{cGPA * creditsEarned}}</b>
-      <h4>Initial Cumulative GPA: <b>{{cGPA}}</b></h4>
-      <b>This Semester:</b>
-      <br>Credits: <b>{{currentCredits}}</b>
-      <br>Grade Points: <b>{{currentGrades}}</b>
-      <h4>This Semester GPA: <b>{{currentGPA}}</b></h4>
-      <b>Total:</b>
-      <br>Total Credits: <b>{{totalCredits}}</b>
-      <br>Total Grade Points: <b>{{totalGrades}}</b>
-      <h4>Resultant Cumulative GPA: <b>{{totalGPA}}</b></h4>
+<div id="bg">			
+  <div id="header">
+    <div id="boss" >
+      <h1>
+        <a [routerLink]="['/']">HKUST COURSE SELECTION ADVISOR</a>
+      </h1>					
     </div>
+    <div id="nav">
+      <ul class="account">
+        <li>
+          <a [routerLink]="['/user-profile']">Profile</a>
+        </li>
+        <li>
+          <a href="" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+      <br class="clear" />
+    </div>
+    
+  </div>
+  
+  <hr />				
+  <p>
+  
+          
+  <div id="main">
+    <div id="sidebar">
+
+      <h3>
+        Functions
+      </h3>
+      <ul class="linkedList">
+        <li class="first">
+          <a [routerLink]="['/credit-transfers']">Credit Transfer</a>
+        </li>
+        <li>
+          <u>GPA Calculator</u>
+        </li>
+        <li>
+          <a [routerLink]="['/course-recommend']">Course Recommendations</a>
+        </li>
+        <li class="last">
+          <a [routerLink]="['/grad-check']">Graduation Checklist</a>
+        </li>
+      </ul>
+    </div>
+    <div id="content">
+      <div id="box1">
+        <div class="content" style="overflow-x: hidden; overflow-y: scroll; height:610px; width:1300px; color:black; padding-left:35px;">
+          <div class="row">
+            <h3 style="color:black">Cumulative GPA Calculator (HKUST)</h3>
+          </div>
+          <div class="row">
+            <form name="gpaCalcForm" class="gpaCalc form-horizontal" novalidate autocomplete="off">
+              <div class="row">
+                <div class="col">
+                  <b>Current Cumulative GPA</b> (at the beginning of this semester)
+                </div>
+                <div class="col-md-6" style="width:145px;">
+                  <div class="form-group">
+                    <label for="cGPA">Cumulative GPA:</label>
+                    <input type="text" required id="cGPA" name="cGPA" class="form-control" [(ngModel)]="cGPA">
+                  </div>
+                </div>
+                <div class="col-md-6" style="width:145px; margin-left:10px;">
+                  <div class="form-group">
+                    <label for="creditsEarned">Credits earned:</label>
+                    <input type="text" required id="creditsEarned" name="creditsEarned" class="form-control" [(ngModel)]="creditsEarned">
+                  </div>
+                </div>
+              </div>
+                
+              <div class="row" style="margin-top: 8px;">
+                <div class="col">
+                  <b>This Semester</b> (courses that are currently in progress)
+                </div>
+                <div class="col-md-6" style="width:440px;">
+                  <div class="col-md-6" style="width:145px; padding: 4px 0px;"><b>Course:</b></div>
+                  <div class="col-md-6" style="width:145px; padding: 4px 0px;"><b>Credits:</b></div>
+                  <div class="col-md-6" style="width:120px; padding: 4px 0px;"><b>Grade:</b></div>
+                </div>
+              </div>
+              <div class="row" *ngFor="let currentCourse of currentCourses; let i = index">
+                <div class="col-md-6" style="width:440px;">
+                  <div class="col-md-6" style="width:145px; padding:4px 0px;">
+                    {{currentCourse.course}}
+                  </div>
+                  <div class="col-md-6" style="width:145px; padding:4px 0px;" *ngIf="currentCourse.units!==''">
+                    {{currentCourse.units}}
+                  </div>
+                  <div class="col-md-6" style="width:120px; margin-right:25px;" *ngIf="currentCourse.units===''">
+                    <div class="form-group">
+                      <input id="units" type="text" class="form-control" [(ngModel)]="currentCourse.newUnits" [name]="units + '_' + i" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6" style="width:120px;">
+                    <div class="form-group">
+                      <input id="grade" type="text" class="form-control" [(ngModel)]="currentCourse.grade" [name]="grade + '_' + i" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        
+              <div class="row">
+                <button id="calculate" type="button" (click)="calculate()">Calculate</button>
+                <button id="reset" type="button" (click)="reset()">Reset</button>
+                <button id="addrow" type="button" (click)="addrow()">Add Row</button>
+              </div>
+            </form>
+            <div class="row" style="margin-top:16px; margin-bottom: 8px;" *ngIf="calculated">
+              <b>Results:</b>
+              <br><b>At the beginning of this semester:</b>
+              <br>Credits: <b>{{creditsEarned}}</b>
+              <br>Grade Points: <b>{{cGPA * creditsEarned}}</b>
+              <h4 style="color:black;">Initial Cumulative GPA: <b>{{cGPA}}</b></h4>
+              <b>This Semester:</b>
+              <br>Credits: <b>{{currentCredits}}</b>
+              <br>Grade Points: <b>{{currentGrades}}</b>
+              <h4 style="color:black;">This Semester GPA: <b>{{currentGPA}}</b></h4>
+              <b>Total:</b>
+              <br>Total Credits: <b>{{totalCredits}}</b>
+              <br>Total Grade Points: <b>{{totalGrades}}</b>
+              <h4 style="color:black;">Resultant Cumulative GPA: <b>{{totalGPA}}</b></h4>
+            </div>
+          </div>
+        
+          <div class="row" style="margin-top:16px; margin-bottom: 8px;">
+            <p style="margin-bottom:4pt; margin-top:0pt;">
+              You can use this tool to calculate your current semester (SGPA) and cumulative (CGPA) grade point averages.
+              <br>To calculate GPA for the current semester enter course credits and grades in the rows in the <b>This Semester</b>
+              section and click the <b>Calculate</b> button. For simple average leave all <b>Credits</b> fields empty.
+              <br>If, in addition, you populate the <b>Current Cumulative GPA</b> section, this tool will also calculate
+              the resultant cumulative GPA at the end of the semester.
+            </p>
+            <p style="margin-bottom:4pt;margin-top:0pt;">
+              <b>Letter/Alpha grades:</b> To perform calculations Letter/Alpha grades will be converted to numbers as per 4.3 scale (see the table below).
+            </p>
+          </div>
+                
+          <div class="row" style="margin-top:16px; margin-bottom: 8px;">
+            <p style="margin-bottom:4pt; margin-top:8pt;">
+              This grade conversion table is used by the Hong Kong University of Science and Technology (HKUST).
+            </p>
+          </div>
+                
+          <div class="row" style="margin: 8px 0px;">
+            <table class="table">
+              <tbody><tr><td>Letter Grade</td><td>Points</td></tr><tr><td>A+</td><td>4.3</td></tr><tr><td>A</td><td>4</td></tr><tr><td>A-</td><td>3.7</td></tr><tr><td>B+</td><td>3.3</td></tr><tr><td>B</td><td>3</td></tr><tr><td>B-</td><td>2.7</td></tr><tr><td>C+</td><td>2.3</td></tr><tr><td>C</td><td>2</td></tr><tr><td>C-</td><td>1.7</td></tr><tr><td>D</td><td>1</td></tr><tr><td>F</td><td>0</td></tr>
+              </tbody></table>
+          </div>
+                
+          <div class="row" style="margin-top:16px; margin-bottom: 8px;">
+            <p style="margin-bottom:4pt; margin-top:8pt;">
+              <b>Information Source:</b>
+              <br><a href="http://transcript.ust.hk/grading.html" target="_blank" style="color:blue">The Hong Kong University of Science and Technology (HKUST) - Grading</a>
+              <br><br>This tool is intended to be used as a guide only. Contact your school or institution for an exact determination.
+            </p>
+          </div>
+        
+        </div>
+      </div>
+
+
+      <br class="clear" />
+    </div>
+    <br class="clear" />
   </div>
 
-  <div class="row" style="margin-top:16px; margin-bottom: 8px;">
-    <p style="margin-bottom:4pt; margin-top:0pt;">
-      You can use this tool to calculate your current semester (SGPA) and cumulative (CGPA) grade point averages.
-      <br>To calculate GPA for the current semester enter course credits and grades in the rows in the <b>This Semester</b>
-      section and click the <b>Calculate</b> button. For simple average leave all <b>Credits</b> fields empty.
-      <br>If, in addition, you populate the <b>Current Cumulative GPA</b> section, this tool will also calculate
-      the resultant cumulative GPA at the end of the semester.
-    </p>
-    <p style="margin-bottom:4pt;margin-top:0pt;">
-      <b>Letter/Alpha grades:</b> To perform calculations Letter/Alpha grades will be converted to numbers as per 4.3 scale (see the table below).
-    </p>
-  </div>
-        
-  <div class="row" style="margin-top:16px; margin-bottom: 8px;">
-    <p style="margin-bottom:4pt; margin-top:8pt;">
-      This grade conversion table is used by the Hong Kong University of Science and Technology (HKUST).
-    </p>
-  </div>
-        
-  <div class="row" style="margin: 8px 0px;">
-    <table class="table">
-      <tbody><tr><td>Letter Grade</td><td>Points</td></tr><tr><td>A+</td><td>4.3</td></tr><tr><td>A</td><td>4</td></tr><tr><td>A-</td><td>3.7</td></tr><tr><td>B+</td><td>3.3</td></tr><tr><td>B</td><td>3</td></tr><tr><td>B-</td><td>2.7</td></tr><tr><td>C+</td><td>2.3</td></tr><tr><td>C</td><td>2</td></tr><tr><td>C-</td><td>1.7</td></tr><tr><td>D</td><td>1</td></tr><tr><td>F</td><td>0</td></tr>
-      </tbody></table>
-  </div>
-        
-  <div class="row" style="margin-top:16px; margin-bottom: 8px;">
-    <p style="margin-bottom:4pt; margin-top:8pt;">
-      <b>Information Source:</b>
-      <br><a href="http://transcript.ust.hk/grading.html" target="_blank">The Hong Kong University of Science and Technology (HKUST) - Grading</a>
-      <br><br>This tool is intended to be used as a guide only. Contact your school or institution for an exact determination.
-    </p>
-  </div>
-
+<hr />				
+<p>
+<div id="copyright">
+   <a href="#">About</a> | <a href="#">Contact</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Services</a>
+</div>
 </div>

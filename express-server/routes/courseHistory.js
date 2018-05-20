@@ -14,9 +14,16 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/:id', function(req, res, next) {
+    CourseHistory.find({_userId:req.params.id},function (err, products) {
+      if (err) return next(err);
+      res.json(products);
+    });
+  });
+
 // Course History Scrape
-router.get('/scrape', function (req, res) {
-    var program = phantomjs.exec('courseHistoryScrape.js');
+router.get('/scrape/ch', function (req, res) {
+    var program = phantomjs.exec('courseHistoryScrape.js','ysschanaa','kelefe314');
     program.stdout.pipe(process.stdout);
     program.stderr.pipe(process.stderr);
     program.stdout.on('data', function (data) {

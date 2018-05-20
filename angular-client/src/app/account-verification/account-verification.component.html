@@ -1,42 +1,73 @@
-<div class="container">
-  <h1>ONE MORE STEP...</h1>
-  <p>A verification email has been sent to your email account.</p>
-  <br>
-  <p>
-    If you do not receive the verification email within a few minutes of signing up, 
-    please kindly check your Junk E-mail folder just in case it got delivered there instead of your inbox. 
-    Please follow the directions provided in the email to complete your signup process.
-  </p>
-  <br>
-  <p>
-    We can resend the verification email to the same address, or if this address is incorrect you can change it here below.
-  </p>
-  <table class="table">
-      <thead>
-        <tr>
-          <td><h3>Your Current Email Address</h3></td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <input type="email" name="email" [(ngModel)]="email" [disabled]="correct" email #prmEmail="ngModel" required>
-            <span *ngIf="prmEmail.invalid && (prmEmail.dirty || prmEmail.touched)" class="alert alert-danger">
-              <span *ngIf="prmEmail.errors?.required">Email is required.</span>
-              <span *ngIf="prmEmail.errors?.email">Invalid email address.</span>
-            </span>
-          </td>
-          <td>
-            <button *ngIf="correct" class="btn" type="button" (click)="editEmail()">Edit</button>
-            <button *ngIf="!correct" class="btn" type="button" (click)="doneEdit()" [disabled]="prmEmail.invalid">Done</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  <div class="row">
-    <div class="col-md-12">
-      <button class="btn btn-primary" type="button" (click)="resendEmail()" [disabled]="!correct">Send Verification Email</button>
-      <button class="btn btn-success" type="button" (click)="checkVerify()">Check Verification</button>
+<div id="bg">			
+  <div id="header">
+    <div id="boss" >
+      <h1>
+        <a [routerLink]="['/']">HKUST COURSE SELECTION ADVISOR</a>
+      </h1>						
+    </div>
+    <div id="nav">
+      <ul class="account">
+        <li>
+          <a [routerLink]="['/login']">Log in</a>
+        </li>
+      </ul>
+      <br class="clear" />
     </div>
   </div>
+  
+  <hr />				
+  <p>
+  
+          
+  <div id="main">
+    <div class="container">
+      <h1>ONE MORE STEP...</h1>
+      <p>A verification email has been sent to your email account.</p>
+      <br>
+      <p>
+        If you do not receive the verification email within a few minutes of signing up, 
+        please kindly check your Junk E-mail folder just in case it got delivered there instead of your inbox. 
+        Please follow the directions provided in the email to complete your signup process.
+      </p>
+      <br>
+      <p>
+        We can resend the verification email to the same address, or if this address is incorrect you can change it here below.
+      </p>
+      <table class="table">
+          <thead>
+            <tr>
+              <td><h3>Your Current Email Address</h3></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input type="email" name="email" [(ngModel)]="email" [disabled]="correct" email #prmEmail="ngModel" required style="color: black;">
+                <span *ngIf="prmEmail.invalid && (prmEmail.dirty || prmEmail.touched)" class="alert alert-danger">
+                  <span *ngIf="prmEmail.errors?.required">Email is required.</span>
+                  <span *ngIf="prmEmail.errors?.email">Invalid email address.</span>
+                </span>
+              </td>
+              <td>
+                <button *ngIf="correct" class="btn" type="button" (click)="editEmail()" style="color:black;">Edit</button>
+                <button *ngIf="!correct" class="btn" type="button" (click)="doneEdit()" [disabled]="prmEmail.invalid">Done</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btn-primary" type="button" (click)="resendEmail()" [disabled]="!correct">Send Verification Email</button>
+          <button class="btn btn-success" type="button" (click)="checkVerify()">Check Verification</button>
+        </div>
+      </div>
+    </div>
+    <br class="clear" />
+  </div>
+
+<hr />				
+<p>
+<div id="copyright">
+   <a href="#">About</a> | <a href="#">Contact</a> | <a href="#">Privacy Policy</a> | <a href="#">Terms of Services</a>
+</div>
 </div>
